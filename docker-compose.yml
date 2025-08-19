@@ -7,6 +7,9 @@ services:
     build:
       context: .
       dockerfile: src/API/ChurchBE.Gateway/Dockerfile
+    volumes:
+      - ./src:/app 
+      - ./Solution Items/Directory.Build.props:/app/Directory.Build.props
 
   churchbe.users.api:
     image: ${DOCKER_REGISTRY-}churchbeusersapi
