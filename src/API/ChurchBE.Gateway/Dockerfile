@@ -8,10 +8,13 @@ EXPOSE 8080
 EXPOSE 8081
 
 
+
+
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "."]
 COPY ["src/API/ChurchBE.Gateway/ChurchBE.Gateway.csproj", "src/API/ChurchBE.Gateway/"]
 RUN dotnet restore "./src/API/ChurchBE.Gateway/ChurchBE.Gateway.csproj"
 COPY . .
