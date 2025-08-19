@@ -1,0 +1,6 @@
+@ChurchBE.Users.API_HostAddress = http://localhost:5262
+
+# GET {{ChurchBE.Users.API_HostAddress}}/weatherforecast/
+# Accept: application/json
+
+###

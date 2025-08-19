@@ -1,0 +1,39 @@
+﻿using ChurchBE.Common.Application.EventBus;
+using ChurchBE.Common.Application.Exceptions;
+using ChurchBE.Common.Application.Messaging;
+using ChurchBE.Common.Domain;
+using ChurchBE.Modules.Users.Application.Users.GetUser;
+using ChurchBE.Modules.Users.Domain.Users;
+using ChurchBE.Modules.Users.IntegrationEvents;
+using MediatR;
+
+namespace ChurchBE.Modules.Users.Application.Users.RegisterUser;
+internal sealed class UserRegisteredDomainEventHandler(ISender sender, IEventBus bus)
+    : DomainEventHandler<UserRegisteredDomainEvent>
+{
+    public override async Task Handle(
+        UserRegisteredDomainEvent domainEvent,
+        CancellationToken cancellationToken = default)
+    {
+        Result<UserResponse> result = await sender.Send(
+            new GetUserQuery(domainEvent.UserId),
+            cancellationToken);
+
+        if (result.IsFailure)
+        {
+            throw new ChurchBEException(nameof(GetUserQuery), result.Error);
+        }
+
+        await bus.PublishAsync(
+            new UserRegisteredIntegrationEvent(
+                domainEvent.Id,
+                domainEvent.OccurredOnUtc,
+                result.Value.Id,
+                result.Value.Email,
+                result.Value.FirstName,
+                result.Value.LastName,
+                result.Value.Mobile),
+            cancellationToken);
+    }
+}
+

@@ -1,0 +1,37 @@
+services:
+  churchbe.gateway:
+    image: ${DOCKER_REGISTRY-}churchbe
+    container_name: ChurchBE.Gateway
+    depends_on:
+      - churchbe.database
+    build:
+      context: .
+      dockerfile: src/API/ChurchBE.Gateway/Dockerfile
+
+  churchbe.database:
+    image: postgres:latest
+    container_name: ChurchBE.Database
+    environment:
+      - POSTGRES_DB=churchbe
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  
+  churchbe.identity:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: ChurchBE.Identity
+    depends_on:
+      - churchbe.database
+    command: start-dev --import-realm
+    environment:
+      - KC_HEALTH_ENABLED=true
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    volumes:
+      - ./.containers/identity:/opt/keycloak/data
+      - ./.files:/opt/keycloak/data/import
+    ports:
+      - 18080:8080

@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\ChurchBE.Common.Infrastructure\ChurchBE.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Common\ChurchBE.Common.Presentation\ChurchBE.Common.Presentation.csproj" />
+    <ProjectReference Include="..\ChurchBE.Modules.Users.Application\ChurchBE.Modules.Users.Application.csproj" />
+  </ItemGroup>
+</Project>

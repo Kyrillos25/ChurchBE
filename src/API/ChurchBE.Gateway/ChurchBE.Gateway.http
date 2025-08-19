@@ -1,0 +1,6 @@
+@ChurchBE.Gateway_HostAddress = http://localhost:5014
+
+# GET {{ChurchBE.Gateway_HostAddress}}/weatherforecast/
+# Accept: application/json
+
+###
