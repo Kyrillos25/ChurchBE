@@ -74,8 +74,10 @@ services:
     container_name: ChurchBE.Queue
     hostname: churchbe-queue
     volumes:
-        - ./.containers/queue/data/:/var/lib/rabbitmq
-        - ./.containers/queue/log/:/var/log/rabbitmq
+        #- ./.containers/queue/data/:/var/lib/rabbitmq
+        #- ./.containers/queue/log/:/var/log/rabbitmq
+        - queue-data:/var/lib/rabbitmq
+        - queue-log:/var/log/rabbitmq
     environment:
         RABBITMQ_DEFAULT_USER: guest
         RABBITMQ_DEFAULT_PASS: guest
