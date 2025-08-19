@@ -14,6 +14,15 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Directory.Build.props", "."]
 COPY ["src/API/ChurchBE.Users.API/ChurchBE.Users.API.csproj", "src/API/ChurchBE.Users.API/"]
+COPY ["src/Common/ChurchBE.Common.Infrastructure/ChurchBE.Common.Infrastructure.csproj", "src/Common/ChurchBE.Common.Infrastructure/"]
+COPY ["src/Common/ChurchBE.Common.Application/ChurchBE.Common.Application.csproj", "src/Common/ChurchBE.Common.Application/"]
+COPY ["src/Common/ChurchBE.Common.Domain/ChurchBE.Common.Domain.csproj", "src/Common/ChurchBE.Common.Domain/"]
+COPY ["src/Common/ChurchBE.Common.Presentation/ChurchBE.Common.Presentation.csproj", "src/Common/ChurchBE.Common.Presentation/"]
+COPY ["src/Modules/Users/ChurchBE.Modules.Users.Infrastructure/ChurchBE.Modules.Users.Infrastructure.csproj", "src/Modules/Users/ChurchBE.Modules.Users.Infrastructure/"]
+COPY ["src/Modules/Users/ChurchBE.Modules.Users.Application/ChurchBE.Modules.Users.Application.csproj", "src/Modules/Users/ChurchBE.Modules.Users.Application/"]
+COPY ["src/Modules/Users/ChurchBE.Modules.Users.Domain/ChurchBE.Modules.Users.Domain.csproj", "src/Modules/Users/ChurchBE.Modules.Users.Domain/"]
+COPY ["src/Modules/Users/ChurchBE.Modules.Users.IntegrationEvents/ChurchBE.Modules.Users.IntegrationEvents.csproj", "src/Modules/Users/ChurchBE.Modules.Users.IntegrationEvents/"]
+COPY ["src/Modules/Users/ChurchBE.Modules.Users.Presentation/ChurchBE.Modules.Users.Presentation.csproj", "src/Modules/Users/ChurchBE.Modules.Users.Presentation/"]
 RUN dotnet restore "./src/API/ChurchBE.Users.API/ChurchBE.Users.API.csproj"
 COPY . .
 WORKDIR "/src/src/API/ChurchBE.Users.API"

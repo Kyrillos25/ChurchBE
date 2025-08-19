@@ -56,7 +56,7 @@ builder.Services.AddHealthChecks()
     })
     .AddKeyCloak(keyCloakHealthUrl);
 
-builder.Configuration.AddModuleConfiguration(["Users"]);
+
 
 builder.Services.AddUsersModule(builder.Configuration);
 

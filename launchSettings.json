@@ -4,7 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "churchbe.gateway": "StartDebugging"
+        "churchbe.gateway": "StartDebugging",
+        "churchbe.users.api": "StartDebugging"
       }
     }
   }

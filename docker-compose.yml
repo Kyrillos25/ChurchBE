@@ -8,6 +8,12 @@ services:
       context: .
       dockerfile: src/API/ChurchBE.Gateway/Dockerfile
 
+  churchbe.users.api:
+    image: ${DOCKER_REGISTRY-}churchbeusersapi
+    build:
+      context: .
+      dockerfile: src/API/ChurchBE.Users.API/Dockerfile
+
   churchbe.database:
     image: postgres:latest
     container_name: ChurchBE.Database
@@ -35,3 +41,43 @@ services:
       - ./.files:/opt/keycloak/data/import
     ports:
       - 18080:8080
+
+  churchbe.seq:
+    image: datalust/seq:latest
+    container_name: ChurchBE.Seq
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_NOAUTHENTICATION=true
+    ports:
+      - 5341:5341
+      - 8081:80
+
+  churchbe.redis:
+    image: redis:latest
+    container_name: ChurchBE.Redis
+    restart: always
+    ports:
+      - 6380:6379
+
+  churchbe.jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: ChurchBE.Jaeger
+    ports:
+      - 4317:4317
+      - 4318:4318
+      - 16686:16686
+
+  churchbe.queue:
+    image: rabbitmq:management-alpine
+    container_name: ChurchBE.Queue
+    hostname: churchbe-queue
+    volumes:
+        - ./.containers/queue/data/:/var/lib/rabbitmq
+        - ./.containers/queue/log/:/var/log/rabbitmq
+    environment:
+        RABBITMQ_DEFAULT_USER: guest
+        RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - 5672:5672
+      - 15672:15672
+
