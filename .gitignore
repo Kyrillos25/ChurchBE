@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Local containers data
 .containers/
+postgres-data/
